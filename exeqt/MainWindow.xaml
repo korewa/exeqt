@@ -87,7 +87,7 @@
                 </Grid>
             </TabItem>
             <TabItem Header="About">
-                <Border Background="DarkGreen" Margin="50" />
+                <Border Background="AliceBlue" Margin="50" />
             </TabItem>
         </TabControl>
     </Grid>
