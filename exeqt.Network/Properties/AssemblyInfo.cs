@@ -1,14 +1,15 @@
 ﻿using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("exeqt.NotifyIcon")]
+[assembly: AssemblyTitle("exeqt.Network")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("exeqt.NotifyIcon")]
+[assembly: AssemblyProduct("exeqt.Network")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -19,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("752e95f5-24f2-4f22-86a8-9e862046c0f1")]
+[assembly: Guid("2a64e19c-f45c-4e0c-a173-fffa40178abd")]
 
 // Version information for an assembly consists of the following four values:
 //

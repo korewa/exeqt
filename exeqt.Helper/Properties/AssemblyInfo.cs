@@ -4,11 +4,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("exeqt.Plugin")]
+[assembly: AssemblyTitle("exeqt.Helper")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("exeqt.Plugin")]
+[assembly: AssemblyProduct("exeqt.Helper")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -19,7 +19,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("9d78e609-3f28-4f20-9cfb-6c32ad70028f")]
+[assembly: Guid("4e52178d-381f-4d7d-a1a4-9f84b782d0cc")]
 
 // Version information for an assembly consists of the following four values:
 //

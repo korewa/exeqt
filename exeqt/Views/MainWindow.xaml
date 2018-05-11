@@ -1,0 +1,304 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:e="clr-namespace:exeqt.Helper.MVVM;assembly=exeqt.Helper"
+        xmlns:local="clr-namespace:exeqt"
+        xmlns:ViewModels="clr-namespace:exeqt.ViewModels" x:Class="exeqt.MainWindow"
+        mc:Ignorable="d"
+        Title="exeqt - Application settings" Height="600" Width="1000" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <Style TargetType="{x:Type TabControl}" x:Key="TabControlMainWindow">
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="SnapsToDevicePixels" Value="True" />
+            <Setter Property="TabStripPlacement" Value="Left" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TabControl}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                                <TabPanel x:Name="HeaderPanel" Background="#202020" Grid.Column="0" IsItemsHost="True" />
+                            </ScrollViewer>
+                            <Border x:Name="Border" Grid.Column="1">
+                                <ContentPresenter ContentSource="SelectedContent" />
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="{x:Type TabItem}" x:Key="TabItemMainWindow">
+            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+            <Setter Property="Height" Value="60" />
+            <Setter Property="Width" Value="200" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border x:Name="Border" Background="Transparent">
+                            <TextBlock
+                                x:Name="Header"
+                                Padding="20 0 0 0"
+                                Text="{TemplateBinding HeaderedContentControl.Header}"
+                                VerticalAlignment="Center" Foreground="White"
+                                FontSize="18" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="TabItem.IsSelected" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="#494949" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Window.DataContext>
+        <ViewModels:MainWindowViewModel />
+    </Window.DataContext>
+
+    <Grid>
+        <TabControl Style="{DynamicResource TabControlMainWindow}">
+            <TabItem Header="Upload" Style="{DynamicResource TabItemMainWindow}">
+                <TabControl Margin="5 0 5 5">
+                    <TabItem Header="Custom">
+                        <Grid Margin="10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="2*" />
+                            </Grid.ColumnDefinitions>
+
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+
+                                <GroupBox Header="Services">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="8*" />
+                                        </Grid.RowDefinitions>
+
+                                        <Grid Grid.Row="0" Margin="2">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <Button Grid.Column="0"
+                                                    Margin="0 0 2.5 0"
+                                                    Content="Add"
+                                                    Command="{Binding AddServiceCommand}" />
+
+                                            <Button Grid.Column="1"
+                                                    Margin="2.5 0 0 0"
+                                                    Content="Remove"
+                                                    Command="{Binding RemoveServiceCommand}" />
+                                        </Grid>
+
+                                        <Grid Grid.Row="1" Margin="2">
+                                            <ListBox ItemsSource="{Binding Services}"
+                                                     SelectedItem="{Binding SelectedService}"
+                                                     DisplayMemberPath="Name">
+                                                <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="SelectionChanged">
+                                                        <e:EventToCommand Command="{Binding SelectedServiceSelectionChangedCommand}" />
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>
+                                            </ListBox>
+                                        </Grid>
+                                    </Grid>
+                                </GroupBox>
+
+                                <Grid Grid.Row="1">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <Button Grid.Row="0" Margin="0 5 0 5"
+                                            Content="Test upload" 
+                                            Command="{Binding UploadTestCommand}" />
+                                    
+                                    <TextBox Grid.Row="1" 
+                                             Text="{Binding UploadTestText}" />
+                                </Grid>
+                            </Grid>
+
+                            <Grid Grid.Column="1" Margin="5 0 0 0" IsEnabled="{Binding IsSelectedService}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock Grid.Row="0"
+                                           Text="Name:" />
+
+                                    <TextBox Grid.Row="1" Margin="0 0 0 5"
+                                         Text="{Binding SelectedService.Name}" />
+
+                                    <TextBlock Grid.Row="2"
+                                           Text="Request Uri:" />
+
+                                    <TextBox Grid.Row="3" Margin="0 0 0 5"
+                                         Text="{Binding SelectedService.RequestUri}" />
+
+                                    <TextBlock Grid.Row="4"
+                                           Text="File form name:" />
+
+                                    <TextBox Grid.Row="5" Margin="0 0 0 5"
+                                         Text="{Binding SelectedService.FileFormName}" />
+
+                                    <TabControl Grid.Row="6">
+                                        <TabItem Header="Arguments">
+                                            <Grid Margin="5">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="*" />
+                                                </Grid.RowDefinitions>
+
+                                                <Grid Grid.Row="0">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="*" />
+                                                    </Grid.ColumnDefinitions>
+
+                                                    <TextBox Grid.Column="0" Margin="0 0 2.5 0"
+                                                             Text="{Binding ArgumentsNameText}" />
+
+                                                    <TextBox Grid.Column="1" Margin="2.5 0 0 0"
+                                                             Text="{Binding ArgumentsValueText}" />
+                                                </Grid>
+
+                                                <Grid Grid.Row="1" Margin="0 5 0 5">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="*" />
+                                                    </Grid.ColumnDefinitions>
+
+                                                    <Button Grid.Column="0"
+                                                            Margin="0 0 0.5 0"
+                                                            Content="Add"
+                                                            Command="{Binding ArgumentsAddCommand}" />
+
+                                                    <Button Grid.Column="1"
+                                                        Margin="0.5 0 0.5 0"
+                                                        Content="Remove" />
+
+                                                    <Button Grid.Column="2"
+                                                        Margin="0.5 0 0 0"
+                                                        Content="Update" />
+                                                </Grid>
+
+                                                <Grid Grid.Row="2">
+                                                    <ListView ItemsSource="{Binding SelectedService.Arguments}">
+                                                        <ListView.View>
+                                                            <GridView>
+                                                                <GridViewColumn Header="Name" Width="110" DisplayMemberBinding="{Binding Key}" />
+                                                                <GridViewColumn Header="Value" Width="110" DisplayMemberBinding="{Binding Value}" />
+                                                            </GridView>
+                                                        </ListView.View>
+                                                    </ListView>
+                                                </Grid>
+                                            </Grid>
+                                        </TabItem>
+                                        <TabItem Header="Headers">
+                                            <Grid Margin="5">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="*" />
+                                                </Grid.RowDefinitions>
+
+                                                <Grid Grid.Row="0">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="*" />
+                                                    </Grid.ColumnDefinitions>
+
+                                                    <TextBox Grid.Column="0" Margin="0 0 2.5 0"
+                                                             Text="{Binding HeadersNameText}" />
+
+                                                    <TextBox Grid.Column="1" Margin="2.5 0 0 0"
+                                                             Text="{Binding HeadersValueText}" />
+                                                </Grid>
+
+                                                <Grid Grid.Row="1" Margin="0 5 0 5">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="*" />
+                                                    </Grid.ColumnDefinitions>
+
+                                                    <Button Grid.Column="0"
+                                                            Margin="0 0 0.5 0"
+                                                            Content="Add"
+                                                            Command="{Binding HeadersAddCommand}" />
+
+                                                    <Button Grid.Column="1"
+                                                        Margin="0.5 0 0.5 0"
+                                                        Content="Remove" />
+
+                                                    <Button Grid.Column="2"
+                                                        Margin="0.5 0 0 0"
+                                                        Content="Update" />
+                                                </Grid>
+
+                                                <Grid Grid.Row="2">
+                                                    <ListView ItemsSource="{Binding SelectedService.Headers}">
+                                                        <ListView.View>
+                                                            <GridView>
+                                                                <GridViewColumn Header="Name" Width="110" DisplayMemberBinding="{Binding Key}" />
+                                                                <GridViewColumn Header="Value" Width="110" DisplayMemberBinding="{Binding Value}" />
+                                                            </GridView>
+                                                        </ListView.View>
+                                                    </ListView>
+                                                </Grid>
+                                            </Grid>
+                                        </TabItem>
+                                    </TabControl>
+                                </Grid>
+
+                                <Grid Grid.Column="2" Margin="5 0 0 0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock Grid.Row="0"
+                                           Text="Regex:" />
+
+                                    <TextBox Grid.Row="1" Margin="0 0 0 5"
+                                         Text="{Binding SelectedService.Regex}" />
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    </TabItem>
+                </TabControl>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
